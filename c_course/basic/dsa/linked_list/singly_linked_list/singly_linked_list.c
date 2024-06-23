@@ -2,15 +2,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Node {
+struct Node {
 	char *data;
-	Node *nextNode;
-}
+	struct Node *nextNode;
+};
 
 Node* createNode(const char *str);
+Node* insertAtBeginning(Node *head, const char *str);
+void printList(Node *head);
 
 int main() {
-	
+	char *data1 = "jayvee";
+	char *data2 = "irene";
+
+	Node *linkedList = createNode(data1);
+	linkedList = insertAtBeginning(linkedList, createNode(data2));
+
+	char *d1 = linkedList-> data;
+
+	printf("data1: %s\n", d1);
+}
+
+void printList(Node *head) {
+	Node *currentNode = head;
+	//while(currentNode)
+}
+
+Node* insertAtBeginning(Node *head, const char *str) {
+	Node *newNode = createNode(str);
+	if(!newNode) {
+		return NULL;
+	}
+	newNode -> nextNode = head;
+	return newNode;
 }
 
 Node* createNode(const char *str) {
