@@ -14,13 +14,20 @@ Node* insertInBeginning(Node **head, const char *data);
 
 int main() {
 	Node **head;
+	//insertInBeginning(head, "jayvee");
 	Node *newNode = createNode("jayvee");
 	head = &newNode;
 	//Node *node2 = createNode("irene");
 	//newNode->nextNode = node2;
 	//traverseList(newNode);
 	//printNode(newNode);
-	//Node *node2 = insertInBeginning(head, "irene");
+	Node *node2 = insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
+	insertInBeginning(head, "irene");
 	traverseList(*head);
 	//printNode(node2);
 	//traverseList(node2);
@@ -56,7 +63,7 @@ Node* insertInBeginning(Node **head, const char *data) {
 	}
 
 	newNode->nextNode = *head;
-	*head = &newNode;
+	*head = newNode;
 	return newNode;  
 }
 
