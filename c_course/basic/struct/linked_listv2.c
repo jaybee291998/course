@@ -8,9 +8,9 @@ typedef struct Node {
 } Node;
 
 typedef struct LinkedList {
-	Node **head;
+	Node *head;
 	size_t len;
-	Node **tail;
+	Node *tail;
 } LinkedList;
 
 Node* createNode(const char *data);
@@ -18,13 +18,19 @@ void printNode(Node *node);
 void traverseList(LinkedList *list);
 Node* insertInBeginning(LinkedList *linkedList, const char *data);
 void printListDetail(LinkedList *list);
+Node* insertAtEnd(LinkedList *list, const char *data);
 
 int main() {
-	Node **head;
+	Node *head;
 	//insertInBeginning(head, "jayvee");
-	Node *newNode = createNode("jayvee");
-	head = &newNode;
-	LinkedList list = {head, 0, &newNode};
+	Node *newNode = createNode("originalHead");
+	Node *tail = createNode("tail0");
+	//newNode -> nextNode = tail;
+	//newNode -> nextNode = createNode("tail0");
+	LinkedList list = {newNode, 2, tail};
+	insertAtEnd(&list, "tail1");
+	insertAtEnd(&list, "tail2");
+	insertInBeginning(&list, "head");
 	//Node *node2 = createNode("irene");
 	//newNode->nextNode = node2;
 	//traverseList(newNode);
@@ -37,9 +43,9 @@ int main() {
 //	insertInBeginning(head, "irene");
 //	insertInBeginning(head, "irene");
 	for(int i = 0; i < 10; i++) {		
-		insertInBeginning(&list, "irene");
+		//insertInBeginning(&list, "irene");
 	}
-	insertInBeginning(&list, "head");
+	//insertInBeginning(&list, "head");
 	traverseList(&list);
 	printListDetail(&list);
 	//printNode(node2);
@@ -72,11 +78,11 @@ Node* createNode(const char *data) {
 Node* insertInBeginning(LinkedList *linkedList, const char *data) {
 	Node *newNode = createNode(data);
 	if(!newNode) {
-		return *(linkedList -> head);
+		return (linkedList -> head);
 	}
 	(linkedList -> len)++; 
-	newNode->nextNode = *(linkedList -> head);
-	*(linkedList -> head) = newNode;
+	newNode->nextNode = (linkedList -> head);
+	(linkedList -> head) = newNode;
 	return newNode;  
 }
 
@@ -87,7 +93,7 @@ void printNode(Node *node ) {
 
 
 void traverseList(LinkedList *list) {
-	Node *currentNode = *(list -> head);
+	Node *currentNode = (list -> head);
 	while(currentNode != NULL) {
 		printNode(currentNode);
 		printf("--------------------------\n");
@@ -97,7 +103,20 @@ void traverseList(LinkedList *list) {
 
 
 void printListDetail(LinkedList *list) {
-	printf("head: %s\n", (*(list -> head))->data);
-	printf("tail: %s\n", (*(list -> tail))->data);
+	printf("head: %s\n", ((list -> head))->data);
+	printf("tail: %s\n", ((list -> tail))->data);
 	printf("head: %zu\n", list -> len);
+}
+
+Node* insertAtEnd(LinkedList *list, const char *data) {
+	Node *newNode = createNode(data);
+	if(!newNode) {
+		return list -> tail;
+	}
+	(list -> len)++;
+	list -> tail -> nextNode = newNode;
+	list -> tail = newNode;
+	//newNode -> nextNode = list -> tail;
+	//list -> tail = newNode;
+	return newNode;
 }
