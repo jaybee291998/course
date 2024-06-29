@@ -16,7 +16,7 @@ typedef struct LinkedList {
 Node* add(LinkedList *list, const char *data);
 Node* getElementAt(LinkedList *list, unsigned int pos);
 unsigned int getLenght(LinkedList *list);
-void removeAtEnd(LinkedList *list);
+Node* removeAtEnd(LinkedList *list);
 Node* insertAt(LinkedList *list, const char *data, unsigned int pos);
 Node* removeAt(LinkedList *list, unsigned int pos);
 unsigned int indexOf(LinkedList *list, const char *data);
@@ -33,15 +33,8 @@ int main() {
 	add(&list, "jayvee");
 	add(&list, "irene");
 	add(&list, "lerma");
-	removeAtEnd(&list);
-	removeAtEnd(&list);
-	removeAtEnd(&list);
-	//removeAtEnd(&list);
-	//removeAtEnd(&list);
 	printList(&list);
 	printListDetail(&list);
-	Node *node = getElementAt(&list, 100);
-	printNode(node);
 	return 0;
 }
 
@@ -83,7 +76,6 @@ Node* add(LinkedList *list, const char *data) {
 }
 
 void printNode(Node *node) {
-	if(node == NULL) return;
 	printf("data: %s\n", node -> data);
 	printf("-------------------------------\n");
 }
@@ -97,47 +89,21 @@ void printList(LinkedList *list) {
 }
 
 void printListDetail(LinkedList *list) {
-	if(list -> head == NULL || list -> tail == NULL) return;
 	printf("head: %s\n", list->head->data);
 	printf("tail: %s\n", list->tail->data);
 	printf("length: %u\n", list->length);
 }
 
 Node* getElementAt(LinkedList *list, unsigned int pos) {
-	Node *currentNode = list -> head;
-	unsigned int currentIndex = 0;
-	while(currentIndex != pos && currentNode != NULL) {
-		currentNode = currentNode -> next;
-		currentIndex++;
-	}
-	
-	return currentNode;
+
 }
 
 unsigned int getLenght(LinkedList *list) {
 
 }
 
-void removeAtEnd(LinkedList *list) {
-	if(list -> head == NULL || list -> tail == NULL) return;
-	Node *currentNode = list -> head;
-	while(currentNode -> next != NULL && currentNode -> next -> next != NULL) {
-		currentNode = currentNode -> next;
-	}
-	(list -> length)--;
-	//Node removedNode;
-	//removedNode -> data = strcpy()	
-	// if the currentNode -> next is null then it must the head
-	if(currentNode -> next == NULL) {
-		freeNode(currentNode);
-		list -> tail = NULL;
-		list -> head = NULL;
-		return;
-	}
-	freeNode(currentNode -> next);
-	list -> tail = currentNode;
-	currentNode -> next = NULL;
-	//return removedNode;
+Node* removeAtEnd(LinkedList *list) {
+
 }
 
 Node* insertAt(LinkedList *list, const char *data, unsigned int pos) {
