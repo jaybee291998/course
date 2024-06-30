@@ -1,47 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 char *clrEscChr = "\033[2J";        /* Clear the screen */
 char *cnrLfEscChr = "\033[H";
 char block[] = {0xE2, 0x96, 0x88};
 char space[] = {0xE2, 0x96, 0x91};
 
-#define WIDTH 5
-#define HEIGHT 5
+#define WIDTH 50
+#define HEIGHT 50
 
 unsigned short UTF_8_LENGTH = 3;
 
 void printBoard(char board[HEIGHT][WIDTH]);
 void step(char board[HEIGHT][WIDTH], char newBoard[HEIGHT][WIDTH]);
 unsigned short getNumOfNeighbors(char board[HEIGHT][WIDTH], unsigned short i, unsigned short j);
+void generateBoard(char board[HEIGHT][WIDTH]);
 
 int main() {
-	char board[HEIGHT][WIDTH] = {
-		{0, 0, 0, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 1, 0, 0},
-		{0, 0, 0, 0, 0}
-	};
+	srand(time(NULL));
+//	char board[HEIGHT][WIDTH] = {
+//		{0, 0, 0, 0, 0},
+//		{0, 0, 1, 0, 0},
+//		{0, 0, 1, 0, 0},
+//		{0, 0, 1, 0, 0},
+//		{0, 0, 0, 0, 0}
+//	};
+	char board[HEIGHT][WIDTH];
 	char bufferBoard[HEIGHT][WIDTH];
-
-	int max = 100;
+	generateBoard(board);
+	int max = 10000;
 	int i = 0;
 	printf("%s", clrEscChr);
+	//printBoard(bufferBoard);
 	//step(board, bufferBoard);
 	//printBoard(bufferBoard);
 	while(i < max) {
 		if(i % 2 == 0) {
 			step(board, bufferBoard);
-			printBoard(bufferBoard);
+			//printBoard(bufferBoard);
 		} else {
 			step(bufferBoard, board);
-			printBoard(board);
+			//printBoard(board);
 		}
 		i++;
-		sleep(1);
+		//sleep(0.1);
 	}
+	printBoard(board);
 	return 0;
 }
 
@@ -104,6 +110,15 @@ unsigned short getNumOfNeighbors(char board[HEIGHT][WIDTH], unsigned short i, un
 		}
 	}
 	return numberOfNeighbors;
+}
+
+void generateBoard(char board[HEIGHT][WIDTH]) {
+	for(unsigned short row = 0; row < HEIGHT; row++) {
+		for(unsigned short col = 0; col < WIDTH; col++) {
+			char value = rand() % 2;
+			board[row][col] = value;
+		}
+	}
 }
 //void printBoard(char board[HEIGHT][WIDTH]) {
 //	char buffer[HEIGHT][(WIDTH * UTF_8_LENGTH) + 1];
