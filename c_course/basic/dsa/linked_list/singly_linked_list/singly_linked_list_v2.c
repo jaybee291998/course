@@ -33,11 +33,15 @@ int main() {
 	add(&list, "jayvee");
 	add(&list, "irene");
 	add(&list, "lerma");
-	removeAtEnd(&list);
-	removeAtEnd(&list);
-	removeAtEnd(&list);
+	add(&list, "imee");
 	//removeAtEnd(&list);
 	//removeAtEnd(&list);
+	//removeAtEnd(&list);
+	//removeAtEnd(&list);
+	//removeAtEnd(&list);
+	for(int i = 0; i < 1000; i++) {
+		insertAt(&list, "justine", 2);
+	}
 	printList(&list);
 	printListDetail(&list);
 	Node *node = getElementAt(&list, 100);
@@ -115,7 +119,8 @@ Node* getElementAt(LinkedList *list, unsigned int pos) {
 }
 
 unsigned int getLenght(LinkedList *list) {
-
+	if(list == NULL) return -1;
+	return list -> length;
 }
 
 void removeAtEnd(LinkedList *list) {
@@ -141,7 +146,30 @@ void removeAtEnd(LinkedList *list) {
 }
 
 Node* insertAt(LinkedList *list, const char *data, unsigned int pos) {
-
+	if(list == NULL || data == NULL) {
+		return NULL;
+	}
+	if(pos >= list -> length - 1 || pos < 1) {
+		printf("naughty naughty!\n");
+		return NULL;
+	}
+	Node *newNode = createNode(data);
+	if(newNode == NULL) {
+		printf("failed to insert a new node\n");
+		return NULL;
+	}
+	Node *currentNode = list -> head;
+	unsigned int currentPos = 0;
+	while(currentNode -> next != NULL && currentPos != pos - 1) {
+		currentNode = currentNode -> next;
+		currentPos++;
+	}
+	Node *previousNodeAtPos = currentNode;
+	Node *nextNode = previousNodeAtPos -> next;
+	previousNodeAtPos -> next = newNode;
+	newNode -> next = nextNode;
+	(list -> length)++;
+	return newNode;
 }
 
 Node* removeAt(LinkedList *list, unsigned int pos) {
