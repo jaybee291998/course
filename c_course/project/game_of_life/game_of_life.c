@@ -32,20 +32,20 @@ int main() {
 	generateBoard(board);
 	int max = 10000;
 	int i = 0;
-	printf("%s", clrEscChr);
+	//printf("%s", clrEscChr);
 	//printBoard(bufferBoard);
 	//step(board, bufferBoard);
 	//printBoard(bufferBoard);
 	while(i < max) {
 		if(i % 2 == 0) {
 			step(board, bufferBoard);
-			//printBoard(bufferBoard);
+			printBoard(bufferBoard);
 		} else {
 			step(bufferBoard, board);
-			//printBoard(board);
+			printBoard(board);
 		}
 		i++;
-		//sleep(0.1);
+		sleep(1);
 	}
 	printBoard(board);
 	return 0;
